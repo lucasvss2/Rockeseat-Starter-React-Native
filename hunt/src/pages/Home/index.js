@@ -7,17 +7,37 @@ import api from '../../services/api';
 
 export default class Home extends Component{
   state={
-    docs: [],
+    productInfo:{},/* variável para armazenar as informações gerais de todos
+    os produtos */
+    docs: [], /* armazena o texto dos docs */
+    page: 1,/* armazena o numero da pagina */
   };
   componentDidMount() {
     this.loadProducts();
   }
-  loadProducts= async ()=>{
-    const response = await api.get('/products');
+  loadProducts= async (page = 1)=>{
+    const response = await api.get(`/products?page=${page}`);/* crases para
+    transformar a url em um template string que permite que a função receba a
+    informação dentro do state page */
 
-    const {docs} = response.data;
+    const {docs,...productInfo} = response.data;
 
-    this.setState({docs});
+    this.setState({
+      docs: [...this.state.docs, ...docs],
+      productInfo,
+      page,
+    });
+  };
+
+  loadMore = () =>{
+    const {page, productInfo} = this.state;
+
+    // eslint-disable-next-line curly
+    if (page === productInfo.pages) return;
+
+    const pageNumber = page + 1;
+
+    this.loadProducts(pageNumber);
   };
 
   renderItem = ({item}) => (
@@ -41,6 +61,8 @@ export default class Home extends Component{
           novamente e retorna o campo único de cada item */
           renderItem={this.renderItem}/* função para renderizar cada um dos itens
           da lista criada anteriormente*/
+          onEndReached={this.loadMore}
+          onEndReachedThreshold={0.1}
         />
     </View>
     );
