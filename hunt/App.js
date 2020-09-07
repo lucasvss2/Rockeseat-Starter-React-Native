@@ -34,6 +34,13 @@ export default function App() {
               backgroundColor: '#DA552F',
             },
             headerTintColor: '#fff',
+            headerTitleStyle: {
+              alignSelf: 'center',
+              textAlign: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              textAlignVertical: 'center',
+            },
           }}
         />
         <Stack.Screen name="Perfil" component={Perfil} />
