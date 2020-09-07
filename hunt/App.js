@@ -12,14 +12,14 @@ import Perfil from './src/pages/Perfil';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function Tabs() {
+/* function Tabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Feed" component={Home} />
       <Tab.Screen name="Sobre" component={Sobre} />
     </Tab.Navigator>
   );
-}
+} */
 
 export default function App() {
   return (
@@ -27,7 +27,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
-          component={Tabs}
+          component={Home}
           options={{
             title: 'JsHunt',
             headerStyle: {
